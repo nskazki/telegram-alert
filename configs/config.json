@@ -1,0 +1,10 @@
+{
+  "botCtrl": {
+    "token": "YOUR_TELEGRAM_BOT_TOKEN",
+    "publicAddress": "YOUR_WHITE_IP_ADDRESS:k{ httpCtrl.port }",
+    "token2chatsPath": "p{ ./storages/token2chats.json }"
+  },
+  "httpCtrl": {
+    "port": 8080
+  }
+}
