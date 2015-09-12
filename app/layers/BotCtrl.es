@@ -39,7 +39,7 @@ export default class BotCtrl extends EventEmitter {
   async needSendHandler(taskId, token, text) {
     try {
       let chat = await this.token2chat.get(token)
-      await this.bot.sendMessage(chat, text)
+      await this.bot.sendMessage(chat, text, { disable_web_page_preview: true })
       this.logger.info(`process task - success #${taskId} send [${text}] to ${chat}`)
       this.emit('sendSuccess', taskId, 'ok :)')
     } catch (err) {
@@ -70,7 +70,7 @@ export default class BotCtrl extends EventEmitter {
           ? await handler(chat)
           : 'wrong cmd :('
 
-        await this.bot.sendMessage(chat, responce)
+        await this.bot.sendMessage(chat, responce, { disable_web_page_preview: true })
         this.logger.info(`process cmd - success [${text}] from ${user}`)
       } catch (err) {
         this.logger.error('process cmd - problem with [%s]: %s', msg, err)
