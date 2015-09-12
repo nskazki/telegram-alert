@@ -33,6 +33,7 @@ export default class BotCtrl extends EventEmitter {
 
   attachTaskProvider(provider) {
     provider.on('needSend', this.needSendHandler.bind(this))
+    return this
   }
 
   async needSendHandler(taskId, token, text) {
@@ -50,6 +51,7 @@ export default class BotCtrl extends EventEmitter {
   async init() {
     await this.initStorage()
     await this.initBot()
+    return this
   }
   async initStorage() {
     this.token2chat = new FsKV(this.config.token2chatsPath)
@@ -58,11 +60,11 @@ export default class BotCtrl extends EventEmitter {
   async initBot() {
     this.bot = new Bot(this.config.token, { polling: true })
     this.bot.on('text', async msg => {
-      let chat = msg.chat.id
-      let text = msg.text
-      let user = msg.from.username
-
       try {
+        let chat = msg.chat.id
+        let text = msg.text
+        let user = msg.from.username
+
         let handler = this.handlerMap[text]
         let responce = isFunction(handler)
           ? await handler(chat)
@@ -71,7 +73,7 @@ export default class BotCtrl extends EventEmitter {
         await this.bot.sendMessage(chat, responce)
         this.logger.info(`process cmd - success [${text}] from ${user}`)
       } catch (err) {
-        this.logger.error(`process cmd - problem [${text}] from ${user}: %s`, err)
+        this.logger.error('process cmd - problem with [%s]: %s', msg, err)
       }
     })
   }
