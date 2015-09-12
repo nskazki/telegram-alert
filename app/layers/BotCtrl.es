@@ -113,7 +113,10 @@ export default class BotCtrl extends EventEmitter {
       If you want to stop use this project:
       1. Remove your token: /logout
       2. Delete added previously functions from ~/.bashrc
-      3. Update bash: source ~/.bashrc`
+      3. Update bash: source ~/.bashrc
+
+      More info: https://github.com/nskazki/telegram-alert
+    `
   }
 
   async generateBashFunc(token) {
