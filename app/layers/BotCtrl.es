@@ -88,7 +88,7 @@ export default class BotCtrl extends EventEmitter {
       token = await this.token2chat.getByValue(chat)
     }
 
-    return await this.generateBashAlias(token)
+    return await this.generateBashFunc(token)
   }
   async logoutHandler(chat) {
     if (!await this.token2chat.hasByValue(chat)) {
@@ -100,34 +100,47 @@ export default class BotCtrl extends EventEmitter {
   }
   async helpHandler() {
     return `
-      This bot can send you notifications about completing console tasks.
+      This bot can send notifications about completing console tasks.
       Actually, this is just an "alert" command for remote server.
 
       If you want to start use this project:
       1. Register yourself: /login
-      2. Add generated alias "talert" in your ~/.bashrc
+      2. Add generated functions in your ~/.bashrc
       3. Update bash: run "source ~/.bashrc" without quotes
       4. Test talert: run "sleep 3; talert" without quotes
       5. Get expected notification about completing your task
 
       If you want to stop use this project:
       1. Remove your token: /logout
-      2. Delete alias added previously from ~/.bashrc
+      2. Delete added previously functions from ~/.bashrc
       3. Update bash: source ~/.bashrc`
   }
 
-  async generateBashAlias(token) {
-    let code  = `$([ $? == 0 ] && echo ✔ || echo ✖)`
-    let user  = `$USER`
-    let host  = `$([ $(hostname -f) == localhost ] && echo $(hostname) || echo $(hostname -f))`
-    let wlcm  = `$([ $USER == root ] && echo \\# || echo \\$)`
-    let promt = `${ user }@${ host }${ wlcm }`
-    let cmd   = `$(history|tail -n1|sed -e '\\''s/^\\s*[0-9]\\+\\s*//;s/[|;&]\\+\\s*talert\\s*$//'\\'')`
-
+  async generateBashFunc(token) {
     return `
-      alias talert-debug='curl -f -s ${ this.config.publicAddress } \
-        --data-urlencode  "text=${ code } ${ promt } ${ cmd }" \
-        --data-urlencode "token=${ token }"'
-      alias talert='talert-debug > /dev/null 2>&1'`
+      function talert-debug {
+        local token="${ token }"
+        local ipAdd="${ this.config.publicAddress }"
+
+        local code="$([ $? == 0 ] && echo ✔ || echo ✖)"
+        local user="$USER"
+        local host="$([ $(hostname -f) == localhost ] && echo $(hostname) || echo $(hostname -f))"
+        local wlcm="$([ $USER == root ] && echo \\# || echo \\$)"
+        local hist="$(history|tail -n1|sed -e '"'"'s/^\\s*[0-9]\\+\\s*//;s/[|;&]\\+\\s*talert\\s*$//'"'"')"
+
+        local text="$code $user@$host$wlcm $hist"
+
+        echo "ipAdd: $ipAdd"
+        echo "token: $token"
+        echo "text:  $text"
+
+        curl -f -s "$ipAdd" \\
+          --data-urlencode  "text=$text" \\
+          --data-urlencode "token=$token"
+      }
+      function talert {
+        talert-debug > /dev/null 2>&1
+      }
+    `
   }
 }
