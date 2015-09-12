@@ -1,4 +1,7 @@
 {
+    "plugins": [
+      "mocha"
+    ],
     "parser": "babel-eslint",
     "ecmaFeatures": {
         "arrowFunctions": true,
@@ -27,15 +30,19 @@
     },
     "rules": {
         "no-console": 0,
-        "no-unused-vars": [ 1, { "vars": "all", "args": "after-used" } ],
+        "no-unused-vars": 1,
         "quotes": [ 1, "single" ],
         "semi": [ 1, "never" ],
         "indent": [ 2, 2 ],
-        "linebreak-style": [ 2, "unix" ]
+        "linebreak-style": [ 2, "unix" ],
+        "mocha/handle-done-callback": 2,
+        "mocha/no-synchronous-tests": 2,
+        "mocha/no-exclusive-tests": 2
     },
     "env": {
         "es6": true,
-        "node": true
+        "node": true,
+        "mocha": true
     },
     "extends": "eslint:recommended"
 }
