@@ -129,7 +129,7 @@ export default class BotCtrl extends EventEmitter {
         local user="$USER"
         local host="$([ $(hostname -f) == localhost ] && echo $(hostname) || echo $(hostname -f))"
         local wlcm="$([ $USER == root ] && echo \\# || echo \\$)"
-        local hist="$(history|tail -n1|sed -e '"'"'s/^\\s*[0-9]\\+\\s*//;s/[|;&]\\+\\s*talert\\s*$//'"'"')"
+        local hist="$(history | tail -n1 | sed -e 's/^\\s*[0-9]\\+\\s*//;s/[|;&]\\+\\s*talert\\s*$//')"
 
         local text="$code $user@$host$wlcm $hist"
 
