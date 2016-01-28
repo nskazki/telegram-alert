@@ -24,7 +24,7 @@
     "mocha": "^2.3.2"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel/register test/test*.es && rm -f storages/test-*-token2chats.json",
+    "test": "mocha --compilers es6:babel/register test/test*.es6 && rm -f storages/test-*-token2chats.json",
     "test-debug": "DEBUG=debug* LOGGER=true npm run test",
     "start": "babel-node -- app/ -c configs/config.json",
     "start-debug": "DEBUG=debug* babel-node -- app/ -c configs/config.json -p true",
