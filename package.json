@@ -2,7 +2,7 @@
   "name": "telegram-alert",
   "version": "1.0.0",
   "description": "$ sleep 5; talert",
-  "main": "app/index.es",
+  "main": "app-build/index.js",
   "dependencies": {
     "bellman": "^1.0.2",
     "bluebird": "^2.9.34",
@@ -30,7 +30,9 @@
     "eslint": "eslint $(find app test -type f -name '*.es6')",
     "test": "npm run eslint && npm run check-configs && npm run mocha",
     "start": "babel-node -- app/ -c configs/config.json",
-    "start-debug": "DEBUG=debug* babel-node -- app/ -c configs/config.json -p true"
+    "start-debug": "DEBUG=debug* babel-node -- app/ -c configs/config.json -p true",
+    "build": "babel --retain-lines app --out-dir app-build",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
