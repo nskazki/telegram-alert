@@ -1,1 +1,2 @@
---compilers es6:babel/register
+--compilers es6:babel-register
+--require babel-polyfill

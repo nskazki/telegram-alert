@@ -45,7 +45,7 @@ let logger = /true/i.test(process.env.LOGGER)
   : new MockLogger()
 
 let baseMsg = {
-  chat: {id: 1234 },
+  chat: { id: 1234 },
   from: { username: 'nskazki' }
 }
 
