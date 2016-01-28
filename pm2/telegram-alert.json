@@ -1,0 +1,8 @@
+{
+  "name"             : "telegram-alert",
+  "script"           : "app-build",
+  "log_date_format"  : "",
+  "args"             : [ "--config=configs/config.json", "--print-config=true" ],
+  "out_file"         : "/var/log/pm2/telegram-alert.log",
+  "error_file"       : "/var/log/pm2/telegram-alert.log"
+}
