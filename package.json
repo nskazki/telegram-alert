@@ -31,6 +31,7 @@
   },
   "scripts": {
     "build": "babel --retain-lines app --out-dir app-build",
+    "build-debug": "babel --retain-lines --source-maps inline app --out-dir app-build",
     "postinstall": "npm run build",
     "start": "node -- . -c configs/config.json -p true",
     "start-debug": "DEBUG=debug* npm run start",
@@ -38,7 +39,8 @@
     "mocha": "mocha test && rm -f storages/test-*-token2chats.json",
     "mocha-debug": "DEBUG=debug* LOGGER=true npm run mocha",
     "check-configs": "natan-test-configs -d configs",
-    "eslint": "eslint $(find app test -type f -name '*.es6')"
+    "eslint": "eslint $(find app test -type f -name '*.es6')",
+    "bugger": "npm run build-debug && bugger --brk -- . -c configs/config.json -p true"
   },
   "repository": {
     "type": "git",
