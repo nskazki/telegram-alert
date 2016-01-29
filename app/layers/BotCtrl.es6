@@ -31,6 +31,8 @@ export default class BotCtrl extends EventEmitter {
     }
   }
 
+  // cli -> user
+
   attachTaskProvider(provider) {
     provider.on('needSend', this.needSendHandler.bind(this))
     return this
@@ -48,15 +50,19 @@ export default class BotCtrl extends EventEmitter {
     }
   }
 
+  // user -> bot
+
   async init() {
     await this.initStorage()
     await this.initBot()
     return this
   }
+
   async initStorage() {
     this.token2chat = new FsKV(this.config.token2chatsPath)
     await this.token2chat.init()
   }
+
   async initBot() {
     this.bot = new Bot(this.config.token, { polling: true })
     this.bot.on('text', async msg => {

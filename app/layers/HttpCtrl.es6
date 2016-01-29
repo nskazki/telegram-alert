@@ -32,6 +32,7 @@ export default class HttpCtrl extends EventEmitter {
     this.taskQueue[id].json(res)
     delete this.taskQueue[id]
   }
+
   sendProblemHandler(id, err) {
     this.taskQueue[id].json(err.toString())
     delete this.taskQueue[id]
@@ -42,6 +43,7 @@ export default class HttpCtrl extends EventEmitter {
       .then(this.initExpress)
       .then(this.initHttpServer)
   }
+
   initExpress() {
     this.express = Express()
     this.express
@@ -54,6 +56,7 @@ export default class HttpCtrl extends EventEmitter {
         this.emit('needSend', id, opt.token, opt.text)
       })
   }
+
   initHttpServer() {
     return new P((resolve, reject) => {
       this.httpServer = this.express
