@@ -48,14 +48,15 @@ $ sleep 3; talert
 Замечание: в поле `publicAddress` порт можно вписать явно.
 Это может потребоваться, если ваш сервис `telegram-alert` будет стоять за NAT и слушать порт, отличный от порта, принимающего соединения из мира. 
 
-После этого, находясь в корневой дирректории проекта, вы сможете:
- * Установить зависимости: `npm install`
- * Проверить свой файл конфигурации: `npm run check-configs`
- * Выполнить тесты: `npm test`
- * Запустить сервис: `npm start`
- * Запустить сервис в режиме отладки: `npm run start-debug`
- * Запустить сервис аки демон силами [pm2](https://github.com/Unitech/pm2):
-```
+После этого, находясь в корневой дирректории проекта, вам необходимо:
+```bash
+# установить зависимости
+npm install
+# протестировать проект
+npm test
+# запустить проект
+# https://github.com/Unitech/pm2
+npm i -g pm2
 sudo mkdir -p /var/log/pm2/
 sudo chown $USER:$USER /var/log/pm2/
 pm2 start pm2/telegram-alert.json
