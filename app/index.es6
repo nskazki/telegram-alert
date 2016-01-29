@@ -51,6 +51,11 @@ process.on('uncaughtException', (err) => {
   process.reallyExit(2)
 })
 
+process.on('unhandledRejection', (err) => {
+  logger.error('unhandledRejection: %s', err)
+  process.reallyExit(2)
+})
+
 P.try(() => {
   let server = new Server(config, logger)
   return server.init()
