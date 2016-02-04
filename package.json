@@ -33,7 +33,7 @@
     "build": "babel --retain-lines app --out-dir app-build",
     "build-debug": "babel --retain-lines --source-maps inline app --out-dir app-build",
     "postinstall": "npm run build",
-    "start": "node -- . -c configs/config.json -p true",
+    "start": "node -r babel-polyfill -- . -c configs/config.json -p true",
     "start-debug": "DEBUG=debug* npm run start",
     "test": "npm run eslint && npm run check-configs && npm run mocha",
     "mocha": "mocha test && rm -f storages/test-*-token2chats.json",

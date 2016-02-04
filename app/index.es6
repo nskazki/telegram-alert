@@ -1,7 +1,5 @@
 'use strict'
 
-import 'babel-polyfill'
-
 import { isString, merge, isEqual } from 'lodash'
 import { inspect }from 'util'
 import { resolve } from 'path'
